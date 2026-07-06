@@ -1,37 +1,39 @@
-# Python cache
+# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Virtual environment
+.Python
 venv/
-.env/
+.venv/
+env/
 
-# Dataset files
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# Dataset
 data/raw/
 data/processed/
-data/splits/
-
-# Model weights
-models/
-*.pth
-*.pt
-
-# Output files
-outputs/predictions/
-outputs/figures/
-outputs/reports/
-
-# Zip / archive files
 *.zip
 *.rar
 *.7z
 
-# System files
+# Models and weights
+models/
+*.pth
+*.pt
+*.onnx
+
+# Outputs
+outputs/
+runs/
+results/
+logs/
+
+# OS
 .DS_Store
 Thumbs.db
-
-# IDE files
-.vscode/
-.idea/
+data/
