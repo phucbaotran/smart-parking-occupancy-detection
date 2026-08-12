@@ -1,0 +1,44 @@
+{
+    "created_at": "2026-08-06T14:21:15",
+    "source_used_for_setup": "demo/input/video/cam3.mp4",
+    "frame_width": 1280,
+    "frame_height": 720,
+    "slot_count": 5,
+    "slots": [
+        {
+            "id": 1,
+            "x": 83,
+            "y": 251,
+            "width": 378,
+            "height": 337
+        },
+        {
+            "id": 2,
+            "x": 504,
+            "y": 259,
+            "width": 234,
+            "height": 215
+        },
+        {
+            "id": 3,
+            "x": 745,
+            "y": 303,
+            "width": 170,
+            "height": 144
+        },
+        {
+            "id": 4,
+            "x": 922,
+            "y": 355,
+            "width": 105,
+            "height": 87
+        },
+        {
+            "id": 5,
+            "x": 954,
+            "y": 337,
+            "width": 106,
+            "height": 70
+        }
+    ]
+}

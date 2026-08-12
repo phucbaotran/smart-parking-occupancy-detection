@@ -1,0 +1,93 @@
+{
+    "created_at": "2026-08-06T14:06:32",
+    "source_used_for_setup": "demo/input/video/cam2.mp4",
+    "frame_width": 720,
+    "frame_height": 1280,
+    "slot_count": 12,
+    "slots": [
+        {
+            "id": 1,
+            "x": 378,
+            "y": 1085,
+            "width": 134,
+            "height": 61
+        },
+        {
+            "id": 2,
+            "x": 352,
+            "y": 1016,
+            "width": 98,
+            "height": 47
+        },
+        {
+            "id": 3,
+            "x": 307,
+            "y": 965,
+            "width": 118,
+            "height": 45
+        },
+        {
+            "id": 4,
+            "x": 288,
+            "y": 922,
+            "width": 91,
+            "height": 35
+        },
+        {
+            "id": 5,
+            "x": 264,
+            "y": 880,
+            "width": 100,
+            "height": 32
+        },
+        {
+            "id": 6,
+            "x": 242,
+            "y": 851,
+            "width": 81,
+            "height": 24
+        },
+        {
+            "id": 7,
+            "x": 238,
+            "y": 821,
+            "width": 73,
+            "height": 24
+        },
+        {
+            "id": 8,
+            "x": 223,
+            "y": 798,
+            "width": 61,
+            "height": 22
+        },
+        {
+            "id": 9,
+            "x": 213,
+            "y": 770,
+            "width": 47,
+            "height": 16
+        },
+        {
+            "id": 10,
+            "x": 205,
+            "y": 744,
+            "width": 45,
+            "height": 22
+        },
+        {
+            "id": 11,
+            "x": 201,
+            "y": 735,
+            "width": 28,
+            "height": 14
+        },
+        {
+            "id": 12,
+            "x": 191,
+            "y": 717,
+            "width": 39,
+            "height": 18
+        }
+    ]
+}

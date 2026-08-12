@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 # 1. PROJECT PATHS
 # =========================================================
 
-PROJECT_ROOT = Path(r"D:\smart-parking-occupancy-detection")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 DATASET_DIR = PROJECT_ROOT / "data" / "raw" / "cnrpark_ext"
 CSV_PATH = DATASET_DIR / "CNRPark+EXT.csv"

@@ -27,7 +27,7 @@ from tqdm import tqdm
 
 
 # *********************** Global configuration
-PROJECT_ROOT = Path(r"D:\smart-parking-occupancy-detection")
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SRC_DIR = PROJECT_ROOT / "src"
 
 sys.path.insert(0, str(SRC_DIR))
@@ -42,7 +42,7 @@ MODEL_PATH = PROJECT_ROOT / "models" / "best_simple_cnn.pth"
 REPORT_DIR = PROJECT_ROOT / "outputs" / "reports"
 FIGURE_DIR = PROJECT_ROOT / "outputs" / "figures"
 
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 NUM_WORKERS = 0
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"

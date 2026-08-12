@@ -1,39 +1,46 @@
-# Python
+﻿# Python
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
-*.pyd
-.Python
+
+# Virtual environments
 venv/
+venv_gpu/
 .venv/
-env/
 
-# Jupyter
-.ipynb_checkpoints/
-
-# VSCode
+# IDE and OS
 .vscode/
+.idea/
+.DS_Store
+Thumbs.db
 
-# Dataset
+# Datasets
 data/raw/
 data/processed/
 *.zip
 *.rar
 *.7z
 
-# Models and weights
-models/
-*.pth
+# Model weights and checkpoints
 *.pt
-*.onnx
+*.pth
+*.ckpt
+/models/
 
-# Outputs
+# Generated outputs
 outputs/
 runs/
-results/
-logs/
 
-# OS
-.DS_Store
-Thumbs.db
-data/
+# Large demo files
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Temporary files
+*.log
+*.tmp
+
+/data/
+
+/src/evaluation/evaluate.py
