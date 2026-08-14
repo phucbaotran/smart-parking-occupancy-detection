@@ -1,85 +1,94 @@
 ﻿# Smart Parking Occupancy Detection
 
-A senior project that detects whether predefined parking spaces are **free** or **occupied** using deep learning and computer vision. The project compares CNN-based parking-space classification with pretrained YOLO11 vehicle detection and ROI-based occupancy analysis, then integrates the selected approach into a multi-camera desktop application.
+A computer vision system for classifying predefined parking spaces as **free** or **occupied** from images and video streams. The project evaluates CNN-based parking-space classification and pretrained YOLO11 vehicle detection with polygon-based Region of Interest (ROI) analysis.
 
-## Project Overview
+The selected YOLO11-ROI pipeline is integrated into a PyQt5 desktop application for monitoring up to three camera sources in real time.
 
-Camera-based parking monitoring can observe multiple parking spaces without installing a physical sensor in every space. This project investigates two approaches:
+## Overview
 
-1. **CNN-based occupancy classification** â€” classifies cropped parking-space images as free or occupied.
-2. **Pretrained YOLO11 with ROI analysis** â€” detects vehicles in an image or video and matches them with manually defined parking-space regions.
+Camera-based parking monitoring can observe multiple parking spaces without requiring a physical sensor for every location. This project investigates two occupancy detection approaches:
 
-The YOLO11â€“ROI approach is also integrated into a PyQt5 application that supports up to three image or video sources and displays the occupancy status of each camera in real time.
+| Approach                 | Description                                                                    | Primary Use                                   |
+| ------------------------ | ------------------------------------------------------------------------------ | --------------------------------------------- |
+| CNN classification       | Classifies cropped images of individual parking spaces as free or occupied     | Model comparison and occupancy classification |
+| YOLO11 with ROI analysis | Detects vehicles and associates them with predefined polygonal parking regions | Image, video, and multi-camera monitoring     |
 
-## Main Features
+The project includes dataset preparation, model training, cross-validation, external evaluation, ROI configuration, occupancy analysis, and desktop application development.
 
-- CNRPark+EXT and PKLot dataset preparation
-- CNN training for binary parking-space classification
-- Five-fold cross-validation and test-set evaluation
-- External-image evaluation for the final CNN model
-- Pretrained YOLO11 vehicle detection
-- Manual polygon ROI configuration
-- Image and video occupancy analysis
-- Manual ground-truth comparison
-- Three-camera PyQt5 monitoring application
-- Per-camera and overall free/occupied counters
+## Key Features
 
-## Occupancy Decision
+* Preparation of CNRPark+EXT and PKLot datasets
+* CNN training for binary parking occupancy classification
+* Five-fold cross-validation and independent test-set evaluation
+* External-image evaluation of the final CNN model
+* Vehicle detection using pretrained YOLO11
+* Manual polygon-based parking ROI configuration
+* Parking occupancy analysis for images and videos
+* Comparison against manually labeled ground truth
+* PyQt5 desktop application supporting three camera sources
+* Per-camera and system-wide occupancy statistics
+* Real-time display of free and occupied parking spaces
 
-For the YOLO11â€“ROI method, a parking space is marked as occupied when either:
+## Occupancy Decision Logic
 
-- the bottom-center point of a detected vehicle lies inside the parking ROI; or
-- the overlap between the vehicle bounding box and the ROI reaches the configured threshold.
+Each parking space is represented by a polygonal ROI. After vehicle detection, a parking space is classified as occupied when at least one of the following conditions is satisfied:
 
-Otherwise, the parking space is marked as free.
+1. The bottom-center point of a detected vehicle lies inside the parking ROI.
+2. The overlap between the vehicle bounding box and the parking ROI reaches the configured threshold.
+
+If neither condition is satisfied, the parking space is classified as free.
 
 ## Repository Structure
 
 ```text
 smart-parking-occupancy-detection/
-â”œâ”€â”€ app/
-â”‚   â””â”€â”€ app_newversion.py
-â”œâ”€â”€ demo/
-â”‚   â””â”€â”€ config/
-â”‚       â”œâ”€â”€ cam1_slots.json
-â”‚       â”œâ”€â”€ cam2_slots.json
-â”‚       â””â”€â”€ cam3_slots.json
-â”œâ”€â”€ src/
-â”‚   â”œâ”€â”€ data/
-â”‚   â”‚   â”œâ”€â”€ check_dataset.py
-â”‚   â”‚   â”œâ”€â”€ parking_dataset.py
-â”‚   â”‚   â”œâ”€â”€ prepare_dataset.py
-â”‚   â”‚   â””â”€â”€ prepare_pklot.py
-â”‚   â”œâ”€â”€ evaluation/
-â”‚   â”‚   â”œâ”€â”€ analyze_5fold_results.py
-â”‚   â”‚   â””â”€â”€ test_final_cnn_external.py
-â”‚   â”œâ”€â”€ inference/
-â”‚   â”‚   â””â”€â”€ cnn_classifier.py
-â”‚   â”œâ”€â”€ models/
-â”‚   â”œâ”€â”€ training/
-â”‚   â”‚   â”œâ”€â”€ 5fold_with_test.py
-â”‚   â”‚   â””â”€â”€ train_final_cnn.py
-â”‚   â””â”€â”€ yolo_detect/
-â”‚       â”œâ”€â”€ demo_parking_roi_v3.py
-â”‚       â””â”€â”€ setup_roi_folder.py
-â”œâ”€â”€ crop_cnn_external.py
-â”œâ”€â”€ evaluate_manual_vs_model.py
-â”œâ”€â”€ requirements.txt
-â””â”€â”€ README.md
+|-- app/
+|   `-- app_newversion.py
+|-- demo/
+|   |-- config/
+|   |   |-- cam1_slots.json
+|   |   |-- cam2_slots.json
+|   |   `-- cam3_slots.json
+|   `-- output/
+|       |-- iu_result/
+|       `-- web_result/
+|-- src/
+|   |-- data/
+|   |   |-- check_dataset.py
+|   |   |-- parking_dataset.py
+|   |   |-- prepare_dataset.py
+|   |   `-- prepare_pklot.py
+|   |-- evaluation/
+|   |   |-- analyze_5fold_results.py
+|   |   `-- test_final_cnn_external.py
+|   |-- inference/
+|   |   `-- cnn_classifier.py
+|   |-- models/
+|   |   `-- simple_cnn.py
+|   |-- training/
+|   |   |-- 5fold_with_test.py
+|   |   `-- train_final_cnn.py
+|   `-- yolo_detect/
+|       |-- demo_parking_roi_v3.py
+|       `-- setup_roi_folder.py
+|-- crop_cnn_external.py
+|-- evaluate_manual_vs_model.py
+|-- requirements.txt
+`-- README.md
 ```
 
-Large datasets, trained model weights, videos, virtual environments, and generated outputs are not included in the repository.
+Large datasets, trained model weights, videos, virtual environments, and generated experiment outputs are excluded from the repository.
 
 ## Datasets
 
-The project uses:
+| Dataset                         | Usage                                            |
+| ------------------------------- | ------------------------------------------------ |
+| CNRPark+EXT                     | CNN-based parking-space classification           |
+| PKLot                           | Comparative training and experimental evaluation |
+| Locally recorded parking videos | Multi-camera application demonstration           |
+| External parking images         | Qualitative model evaluation                     |
 
-- **CNRPark+EXT** for CNN-based parking-space classification
-- **PKLot** for comparison and experimental evaluation
-- Locally captured parking videos for the multi-camera application demo
-- A small set of external images for qualitative testing
-
-Download and prepare the datasets separately before training. The expected processed CSV files are stored under:
+After dataset preparation, the expected CSV files are stored at:
 
 ```text
 data/processed/train.csv
@@ -87,43 +96,77 @@ data/processed/val.csv
 data/processed/test.csv
 ```
 
-## Technologies
+Dataset files must be downloaded and prepared separately before model training.
 
-- Python 3.11
-- PyTorch and Torchvision
-- Ultralytics YOLO
-- OpenCV
-- PyQt5
-- NumPy and Pandas
-- Scikit-learn
-- Matplotlib and Seaborn
-- Pillow
+## Technology Stack
+
+* Python 3.11
+* PyTorch
+* Torchvision
+* Ultralytics YOLO
+* OpenCV
+* PyQt5
+* NumPy
+* Pandas
+* Scikit-learn
+* Matplotlib
+* Seaborn
+* Pillow
+
+## System Requirements
+
+* Python 3.11
+* Windows 10 or Windows 11
+* A CUDA-compatible NVIDIA GPU is recommended for faster inference and training
+* Sufficient storage for the CNRPark+EXT and PKLot datasets
+
+The project can run on a CPU, but model training and multi-camera inference may be considerably slower.
 
 ## Installation
 
-Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/phucbaotran/smart-parking-occupancy-detection.git
 cd smart-parking-occupancy-detection
 ```
 
-Create and activate a virtual environment on Windows:
+### 2. Create a virtual environment
 
 ```powershell
 py -3.11 -m venv venv_gpu
+```
+
+### 3. Activate the environment
+
+```powershell
 .\venv_gpu\Scripts\Activate.ps1
 ```
 
-Install the dependencies:
+### 4. Install the dependencies
 
 ```powershell
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
-Model weights such as `yolo11n.pt`, `yolo11s.pt`, and the trained CNN checkpoint must be downloaded or placed locally because they are excluded from Git.
+## Local Model Files
+
+Pretrained and trained model weights are not stored in the repository because of their file sizes.
+
+Before running the corresponding pipelines, download or provide the required model files locally, such as:
+
+```text
+yolo11n.pt
+yolo11s.pt
+final_cnrpark_cnn.pth
+```
+
+Model paths and input sources may need to be configured based on the local project directory.
 
 ## Usage
+
+Run all commands from the repository root.
 
 ### Prepare the CNN dataset
 
@@ -131,7 +174,7 @@ Model weights such as `yolo11n.pt`, `yolo11s.pt`, and the trained CNN checkpoint
 python src/data/prepare_dataset.py
 ```
 
-### Run five-fold evaluation
+### Run five-fold cross-validation
 
 ```powershell
 python src/training/5fold_with_test.py
@@ -143,11 +186,19 @@ python src/training/5fold_with_test.py
 python src/training/train_final_cnn.py
 ```
 
+### Evaluate the final CNN on external images
+
+```powershell
+python src/evaluation/test_final_cnn_external.py
+```
+
 ### Configure parking-space ROIs
 
 ```powershell
 python src/yolo_detect/setup_roi_folder.py
 ```
+
+The ROI configuration tool allows parking spaces to be defined manually as polygons and saved as JSON files.
 
 ### Run YOLO11 with ROI analysis
 
@@ -155,46 +206,54 @@ python src/yolo_detect/setup_roi_folder.py
 python src/yolo_detect/demo_parking_roi_v3.py
 ```
 
-### Run the multi-camera application
+### Compare predictions with manual ground truth
+
+```powershell
+python evaluate_manual_vs_model.py
+```
+
+### Launch the multi-camera application
 
 ```powershell
 python app/app_newversion.py
 ```
 
-The local paths and model settings may need to be selected or configured before running the application on a new machine.
+Before starting the application, configure the required video sources, model weights, and ROI JSON files for each camera.
 
-## Example Results
+## Example Outputs
 
 ### Locally collected parking image
 
-![YOLO11 and ROI result on a locally collected image](demo/output/iu_result/iu_01_roi_detected.jpg)
+![YOLO11 and ROI result on a locally collected parking image](demo/output/iu_result/iu_01_roi_detected.jpg)
 
 ### External parking image
 
-![YOLO11 and ROI result on an external image](demo/output/web_result/web_01_roi_detected.jpg)
+![YOLO11 and ROI result on an external parking image](demo/output/web_result/web_01_roi_detected.jpg)
 
 ## Limitations
 
-- Parking-space ROIs are configured manually and depend on a mostly fixed camera viewpoint.
-- Camera movement can shift the ROIs and reduce occupancy accuracy.
-- Small or partially occluded vehicles may be missed.
-- Objects with vehicle-like visual features may occasionally cause false detections.
-- Performance can be affected by lighting, weather, shadows, viewing angle, and video quality.
-- Dataset files, large videos, and trained weights are not distributed in this repository.
+* Parking-space ROIs must be configured manually.
+* The ROI positions depend on a mostly fixed camera viewpoint.
+* Camera movement can cause ROI misalignment and reduce occupancy accuracy.
+* Small, distant, or partially occluded vehicles may not be detected reliably.
+* Objects with vehicle-like visual features may occasionally produce false detections.
+* Lighting, shadows, weather, viewing angle, and video quality can affect system performance.
+* Large datasets, videos, and trained model weights are not distributed with the repository.
 
-## Future Work
+## Future Improvements
 
-- Add automatic parking-space localization
-- Improve robustness to camera movement
-- Test nighttime and more difficult weather conditions
-- Optimize inference speed for live camera streams
-- Support additional cameras and network camera sources
-- Improve deployment and long-term parking-status storage
+* Automatic parking-space localization
+* Camera stabilization and ROI alignment
+* Improved performance under nighttime and difficult weather conditions
+* Faster inference for live video streams
+* Support for additional cameras and IP camera sources
+* Persistent storage of parking occupancy history
+* Automated notifications and parking availability reporting
+* Deployment as a web-based or cloud-connected monitoring system
 
 ## Author
 
 **Tran Bao Phuc**
 Electrical and Telecommunication Engineering Student
 
-This repository was developed as an individual senior project and portfolio project in deep learning and computer vision.
-
+This repository was developed as an individual senior project and technical portfolio project focusing on deep learning, object detection, and computer vision.
